@@ -11,14 +11,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/textview"
-      android:text="Hello Andriy\nPlease enter text below"
+      android:text="Hello Andriy"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:layout_height="50dp"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:id="@+id/edittext"
         app:layout_constraintTop_toBottomOf="@id/textview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,17 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:text="Click!"
+        android:text="Перейти"
         app:layout_constraintTop_toBottomOf="@id/edittext"
         app:layout_constraintStart_toStartOf="@id/edittext"
         app:layout_constraintEnd_toEndOf="@id/edittext"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
