@@ -8,37 +8,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/textview"
-      android:text="Hello Andriy\nPlease enter text below"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:layout_height="50dp"
-        android:layout_width="100dp"
-        android:id="@+id/edittext"
-        app:layout_constraintTop_toBottomOf="@id/textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-    />
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:text="Click!"
-        app:layout_constraintTop_toBottomOf="@id/edittext"
-        app:layout_constraintStart_toStartOf="@id/edittext"
-        app:layout_constraintEnd_toEndOf="@id/edittext"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageview"
+        android:text="Active users:"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="300dp"
+        android:id="@+id/textview"
+      />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Id"
+        app:layout_constraintTop_toBottomOf="@id/textview"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/idtext"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        app:layout_constraintTop_toBottomOf="@id/textview"
+        app:layout_constraintStart_toEndOf="@id/idtext"
+        android:layout_marginStart="10dp"
+        android:id="@+id/usernametext"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/idtext"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/users"
+    />
   </androidx.constraintlayout.widget.ConstraintLayout>

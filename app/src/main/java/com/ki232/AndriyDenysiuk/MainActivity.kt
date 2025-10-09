@@ -7,26 +7,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }*/
-        findViewById<Button>(R.id.button).setOnClickListener {
-            val text = findViewById<EditText>(R.id.edittext).text.toString()
-            val textView = findViewById<TextView>(R.id.textview)
-            if (text.isEmpty())
-                textView.setText("Введіть текст!")
-            else
-                textView.setText(text)
-            findViewById<ImageView>(R.id.imageview).setImageDrawable(resources.getDrawable(R.drawable.image))
         }
+
         printMe()
         var a = 3
         var b = 0.33
@@ -46,6 +42,11 @@ class MainActivity : AppCompatActivity() {
             val user = users.get(i);
             println("User " + user.id + " full name is " + user.name + " " + user.surname)
         }
+        val userAdapter = Users()
+        userAdapter.setUsers(users)
+        val recycler = findViewById<RecyclerView>(R.id.users)
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.adapter = userAdapter
     }
     fun dayOfWeek(a: Int): String {
         when (a) {
