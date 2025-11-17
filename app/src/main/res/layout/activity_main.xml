@@ -22,6 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Id"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/textview"
+      android:text="Hello Andriy"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:id="@+id/edittext"
         app:layout_constraintTop_toBottomOf="@id/textview"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/idtext"
@@ -34,6 +46,11 @@
         app:layout_constraintStart_toEndOf="@id/idtext"
         android:layout_marginStart="10dp"
         android:id="@+id/usernametext"
+        android:id="@+id/button"
+        android:text="Перейти"
+        app:layout_constraintTop_toBottomOf="@id/edittext"
+        app:layout_constraintStart_toStartOf="@id/edittext"
+        app:layout_constraintEnd_toEndOf="@id/edittext"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"

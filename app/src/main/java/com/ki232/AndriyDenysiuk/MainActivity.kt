@@ -1,18 +1,30 @@
 package com.ki232.AndriyDenysiuk
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    val switch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val text = it.data?.getStringExtra("second_name")
+            findViewById<TextView>(R.id.textview).setText(text)
+            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,6 +34,21 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val edittext = findViewById<EditText>(R.id.edittext);
+        val textView = findViewById<TextView>(R.id.textview);
+        val button = findViewById<Button>(R.id.button);
+
+        button.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            if (!edittext.text.toString().isEmpty())
+                intent.putExtra("name", edittext.text.toString())
+            else
+                textView.setText("Введіть текст!")
+            switch.launch(intent)
+        }
+
+        Toast.makeText(this, "MainActivity: onCreate()", Toast.LENGTH_SHORT).show()
 
         printMe()
         var a = 3
@@ -65,5 +92,34 @@ class MainActivity : AppCompatActivity() {
     }
     fun printMe(){
         println("Hello, Andriy Denysiuk from KI-23-2!")
+    }
+    override fun onStart(){
+        super.onStart()
+        Toast.makeText(this, "MainActivity: onStart()", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this, "MainActivity: onResume()", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this, "MainActivity: onPause()", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this, "MainActivity: onStop()", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(this, "MainActivity: onDestroy()", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Toast.makeText(this, "MainActivity: onRestart()", Toast.LENGTH_SHORT).show()
     }
 }
