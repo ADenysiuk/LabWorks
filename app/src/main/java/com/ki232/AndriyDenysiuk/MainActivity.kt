@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,18 +13,32 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+    val users = ArrayList<User>()
+    val userAdapter = Users()
     val switch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
-            val text = it.data?.getStringExtra("second_name")
-            findViewById<TextView>(R.id.textview).setText(text)
+            val text = it.data?.getStringExtra("second_name")?.split(" ")
+            if (text != null) {
+                users.add(User(users.size + 1, text?.get(0) ?: "", if (text.size > 1) text.get(1) else ""))
+                userAdapter.setUsers(users)
+            }
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
         }
     }
+    private val users1: ArrayList<User>
+        get() {
+            val users = ArrayList<User>()
+            return users
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        users.add(User(3, "Oleksandr", "Blyskavychniy"))
+        users.add(User(1, "Andriy", "Denysiuk"))
+        users.add(User(2, "Oleg", "Hrigoryv"))
+        users.add(User(5, "Vasyliy", "Tremenko"))
+        users.add(User(4, "Petro", "Moleskiy"))
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -34,21 +47,14 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        val edittext = findViewById<EditText>(R.id.edittext);
         val textView = findViewById<TextView>(R.id.textview);
-        val button = findViewById<Button>(R.id.button);
-
+        val button = findViewById<Button>(R.id.buttonAdd);
+        val intent = Intent(this, SecondActivity::class.java)
         button.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
-            if (!edittext.text.toString().isEmpty())
-                intent.putExtra("name", edittext.text.toString())
-            else
-                textView.setText("Введіть текст!")
             switch.launch(intent)
         }
 
-        Toast.makeText(this, "MainActivity: onCreate()", Toast.LENGTH_SHORT).show()
+        /*Toast.makeText(this, "MainActivity: onCreate()", Toast.LENGTH_SHORT).show()
 
         printMe()
         var a = 3
@@ -57,25 +63,20 @@ class MainActivity : AppCompatActivity() {
         var d = true
         println("a = " + a + ", b = " + b + ", " + c + ", d is " + d)
         println("Statement that a is even is " + isOdd(a));
-        println("If a was a number of a week it would be " + dayOfWeek(a));
-        val users = ArrayList<User>()
-        users.add(User(3, "Oleksandr", "Blyskavychniy"))
-        users.add(User(1, "Andriy", "Denysiuk"))
-        users.add(User(2, "Oleg", "Hrigoryv"))
-        users.add(User(5, "Vasyliy", "Tremenko"))
-        users.add(User(4, "Petro", "Moleskiy"))
+        println("If a was a number of a week it would be " + dayOfWeek(a));*/
+
         users.sortBy { it.name };
-        for (i in 0..4){
+        /*for (i in 0..4){
             val user = users.get(i);
             println("User " + user.id + " full name is " + user.name + " " + user.surname)
-        }
-        val userAdapter = Users()
+        }*/
+
         userAdapter.setUsers(users)
         val recycler = findViewById<RecyclerView>(R.id.users)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = userAdapter
     }
-    fun dayOfWeek(a: Int): String {
+    /*fun dayOfWeek(a: Int): String {
         when (a) {
             1 -> return "Monday"
             2 -> return "Tuesday"
@@ -121,5 +122,9 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Toast.makeText(this, "MainActivity: onRestart()", Toast.LENGTH_SHORT).show()
-    }
+    }*/
+}
+
+class User(val id: Int, val name: String, val surname: String) {
+
 }

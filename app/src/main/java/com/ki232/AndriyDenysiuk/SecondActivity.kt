@@ -14,25 +14,25 @@ class SecondActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.second_activity)
+        setContentView(R.layout.activity_main_alternative)
 
         val edittext = findViewById<EditText>(R.id.edittext);
         val textView = findViewById<TextView>(R.id.textview);
-        val button = findViewById<Button>(R.id.button);
+        val button = findViewById<Button>(R.id.buttonConfirm);
 
-        textView.setText(intent.getStringExtra("name"))
         button.setOnClickListener {
             val intent = Intent()
-            if (!edittext.text.toString().isEmpty())
+            if (!edittext.text.toString().isEmpty()) {
                 intent.putExtra("second_name", edittext.text.toString())
+                setResult(Activity.RESULT_OK, intent);
+                finish()
+            }
             else
                 textView.setText("Введіть текст!")
-            setResult(Activity.RESULT_OK, intent);
-            finish()
         }
         Toast.makeText(this, "SecondActivity: onCreate()", Toast.LENGTH_SHORT).show()
     }
-    override fun onStart(){
+    /*override fun onStart(){
         super.onStart()
         Toast.makeText(this, "SecondActivity: onStart()", Toast.LENGTH_SHORT).show()
     }
@@ -60,7 +60,7 @@ class SecondActivity: AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Toast.makeText(this, "SecondActivity: onRestart()", Toast.LENGTH_SHORT).show()
-    }
+    }*/
 
 
 }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.DrawableUtils
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
@@ -20,6 +19,7 @@ class Users: RecyclerView.Adapter<Users.UserHolder>() {
         users.addAll(u)
         notifyDataSetChanged()
     }
+
     override fun getItemCount(): Int = users.size;
 
     override fun onBindViewHolder(holder: UserHolder, position: Int) {

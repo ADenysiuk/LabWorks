@@ -12,16 +12,11 @@
         android:layout_height="wrap_content"
         android:text="Active users:"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="300dp"
-        android:id="@+id/textview"
+        android:id="@+id/usertextview"
       />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Id"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/textview"
@@ -30,32 +25,38 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:layout_height="50dp"
+    <TextView
         android:layout_width="wrap_content"
-        android:id="@+id/edittext"
-        app:layout_constraintTop_toBottomOf="@id/textview"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
         android:id="@+id/idtext"
+        android:text="Id"
+        app:layout_constraintTop_toBottomOf="@id/usertextview"
+        app:layout_constraintStart_toStartOf="parent"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username"
-        app:layout_constraintTop_toBottomOf="@id/textview"
-        app:layout_constraintStart_toEndOf="@id/idtext"
         android:layout_marginStart="10dp"
         android:id="@+id/usernametext"
-        android:id="@+id/button"
-        android:text="Перейти"
-        app:layout_constraintTop_toBottomOf="@id/edittext"
-        app:layout_constraintStart_toStartOf="@id/edittext"
-        app:layout_constraintEnd_toEndOf="@id/edittext"
+        app:layout_constraintTop_toBottomOf="@id/usertextview"
+        app:layout_constraintStart_toStartOf="@id/idtext"
+        android:paddingLeft="5dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        app:layout_constraintTop_toBottomOf="@id/users"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/buttonAdd"
+        android:layout_marginTop="35dp"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/idtext"
+        app:layout_constraintTop_toBottomOf="@id/usernametext"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/users"
     />
