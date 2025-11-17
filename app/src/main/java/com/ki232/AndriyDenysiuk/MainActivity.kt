@@ -14,15 +14,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
 class MainActivity : AppCompatActivity() {
     val users = ArrayList<User>()
     val userAdapter = Users()
+    val manager = DataManager(this)
     val switch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val text = it.data?.getStringExtra("second_name")?.split(" ")
             if (text != null) {
                 users.add(User(users.size + 1, text?.get(0) ?: "", if (text.size > 1) text.get(1) else ""))
                 userAdapter.setUsers(users)
+                manager.saveUser(text.joinToString(" "))
             }
             Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
         }
@@ -34,12 +37,19 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        users.add(User(3, "Oleksandr", "Blyskavychniy"))
-        users.add(User(1, "Andriy", "Denysiuk"))
-        users.add(User(2, "Oleg", "Hrigoryv"))
-        users.add(User(5, "Vasyliy", "Tremenko"))
-        users.add(User(4, "Petro", "Moleskiy"))
         super.onCreate(savedInstanceState)
+        try {
+            users.addAll(manager.getUserList())
+            if (users.size == 0){
+                users.add(User(3, "Oleksandr", "Blyskavychniy"))
+                users.add(User(1, "Andriy", "Denysiuk"))
+                users.add(User(2, "Oleg", "Hrigoryv"))
+                users.add(User(5, "Vasyliy", "Tremenko"))
+                users.add(User(4, "Petro", "Moleskiy"))
+            }
+        }catch (e: Exception){
+            println("There was an error trying to load users. " + e.cause)
+        }
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -47,13 +57,17 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val textView = findViewById<TextView>(R.id.textview);
-        val button = findViewById<Button>(R.id.buttonAdd);
+        val textView = findViewById<TextView>(R.id.textview)
+        val button = findViewById<Button>(R.id.buttonAdd)
+        val clearDataButton = findViewById<Button>(R.id.clearData)
         val intent = Intent(this, SecondActivity::class.java)
         button.setOnClickListener {
             switch.launch(intent)
         }
-
+        clearDataButton.setOnClickListener {
+            manager.clearData()
+            users.clear()
+        }
         /*Toast.makeText(this, "MainActivity: onCreate()", Toast.LENGTH_SHORT).show()
 
         printMe()
@@ -108,12 +122,15 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         Toast.makeText(this, "MainActivity: onPause()", Toast.LENGTH_SHORT).show()
     }
-
+    */
     override fun onStop() {
         super.onStop()
         Toast.makeText(this, "MainActivity: onStop()", Toast.LENGTH_SHORT).show()
+        val list = ArrayList<String>()
+        users.forEach({ list.add(it.toString()) })
+        manager.saveUsers(list)
     }
-
+    /*
     override fun onDestroy() {
         super.onDestroy()
         Toast.makeText(this, "MainActivity: onDestroy()", Toast.LENGTH_SHORT).show()
@@ -126,5 +143,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class User(val id: Int, val name: String, val surname: String) {
-
+    override fun toString(): String {
+        return Integer.toString(this.id) + " " + this.name + " " + this.surname;
+    }
 }

@@ -60,4 +60,11 @@
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/users"
     />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Clear Data"
+        android:id="@+id/clearData"
+        />
   </androidx.constraintlayout.widget.ConstraintLayout>
